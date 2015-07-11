@@ -1,6 +1,6 @@
 # izi-ioc
 
-# beans.js
+# bean.js
 
 ```javascript
 
@@ -16,16 +16,19 @@
 
 ```javascript
 
-    import {inject, init} from "izi-ioc";
-
     export class TodoStorage {
-        
         constructor() {
             this.items = [];
         }
         
         add(todo) {
             this.items.push(todo);
+        }
+        
+        load() {
+            this.add({
+                title: "Prepare documentation"
+            });
         }
     }
 ```
@@ -34,12 +37,12 @@
 
 ```javascript
 
-    import {beans} from "./beans";
+    import {bean} from "./bean";
     import {inject, init} from "izi-ioc";
     
     export class TodoController {
         
-        todoStorage = inject(beans.TodoStorage)
+        todoStorage = inject(bean.TodoStorage);
         
         @init
         init() {
@@ -57,16 +60,13 @@
 
 ```javascript
 
-    import beans from "./beans";
+    import bean from "./bean";
     import {bakeBeans, singletonOf} from "izi-ioc";
     import TodoController from "./TodoController";
     import TodoStorage from "./TodoStorage";
     
-    const context = bakeBeans(
-        singletonOf(TodoController).as(beans.TodoController),
-        singletonOf(TodoStorage).as(beans.TodoStorage)
+    context = bakeBeans(
+        singletonOf(TodoController).as(bean.TodoController),
+        singletonOf(TodoStorage).as(bean.TodoStorage)
     );
-    
-    const controller = context.getBean(beans.TodoController);
-    controller.add({title: "First Item To Do!"});
 ```
