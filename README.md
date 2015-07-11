@@ -11,6 +11,25 @@
         TodoStorage: "TodoStorage"
     }
 ```
+
+# TodoStorage.js
+
+```javascript
+
+    import {inject, init} from "izi-ioc";
+
+    export class TodoStorage {
+        
+        constructor() {
+            this.items = [];
+        }
+        
+        add(todo) {
+            this.items.push(todo);
+        }
+    }
+```
+
 # TodoController.js
 
 ```javascript
@@ -31,25 +50,6 @@
             this.todoStorage.add(todo);
         }
 
-    }
-```
-
-# TodoStorage.js
-
-```javascript
-
-    import {beans} from "./beans";
-    import {inject, init} from "izi-ioc";
-
-    export class TodoStorage {
-        
-        constructor() {
-            this.items = [];
-        }
-        
-        add(todo) {
-            this.items.push(todo);
-        }
     }
 ```
     
