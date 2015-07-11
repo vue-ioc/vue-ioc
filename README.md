@@ -6,7 +6,7 @@
 
     // Good practice - common enum to avoid string typos
     
-    export default {
+    export default var bean = {
         TodoController: "TodoController",
         TodoStorage: "TodoStorage"
     }
@@ -16,7 +16,7 @@
 
 ```javascript
 
-    export class TodoStorage {
+    export default class TodoStorage {
         constructor() {
             this.items = [];
         }
@@ -37,10 +37,10 @@
 
 ```javascript
 
-    import {bean} from "./bean";
+    import bean from "./bean";
     import {inject, init} from "izi-ioc";
     
-    export class TodoController {
+    export default class TodoController {
         
         todoStorage = inject(bean.TodoStorage);
         
