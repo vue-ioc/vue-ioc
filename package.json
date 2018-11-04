@@ -1,49 +1,39 @@
 {
-  "name": "izi-ioc",
-  "version": "1.0.0",
-  "description": "izi way to use IoC/DI in JavaScript classes",
-  "main": "dist/izi-ioc.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "vue-ioc",
+  "version": "0.0.1",
+  "description": "IoC and DI for Vue powered by InversifyJS",
+  "author": "Piotr Gejgalis",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gejgalis/izi-ioc.git"
+    "url": "https://github.com/gejgalis/vue-ioc.git"
   },
-  "keywords": [
-    "izi",
-    "ioc",
-    "di",
-    "class",
-    "inject",
-    "inversion",
-    "of",
-    "control",
-    "dependency",
-    "injection"
-  ],
-  "author": "Piotr Gejgalis",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/gejgalis/izi-ioc/issues"
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:e2e": "vue-cli-service test:e2e",
+    "test:unit": "vue-cli-service test:unit"
   },
-  "homepage": "https://github.com/gejgalis/izi-ioc",
   "dependencies": {
-    "lodash": "3.10.0"
+    "vue": "^2.5.17",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^7.0.0"
   },
   "devDependencies": {
-    "babel": "^5.6.14",
-    "babel-core": "^5.6.17",
-    "babel-loader": "^5.3.1",
-    "babel-runtime": "^5.6.17",
-    "chai": "^3.0.0",
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.6",
-    "mocha": "^2.2.5",
-    "node-libs-browser": "^0.5.2",
-    "webpack": "^1.10.1"
-  }
+    "@types/chai": "^4.1.0",
+    "@types/mocha": "^5.2.4",
+    "@vue/cli-plugin-e2e-nightwatch": "^3.1.1",
+    "@vue/cli-plugin-typescript": "^3.1.1",
+    "@vue/cli-plugin-unit-mocha": "^3.1.1",
+    "@vue/cli-service": "^3.1.1",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "chai": "^4.1.2",
+    "typescript": "^3.0.0",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ]
 }
