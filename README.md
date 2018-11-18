@@ -31,12 +31,7 @@ and inspired by [Angular @Module](https://angular.io/guide/ngmodules) syntactic 
  
 ## Installation
 
-*  You can install by Vue CLI...
-```bash
-vue add ioc
-```
-
- * ... or by NPM/Yarn
+ * NPM/Yarn
 ```bash
 # Yarn:
 npm install @vue-ioc/core --save
@@ -75,8 +70,9 @@ Add root container using `@Module` decorator at your top level App component and
 ```vue
 // App.vue
 <script lang="ts">
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
     import {Module} from '@vue-ioc/core';
-    import {Component, Vue} from 'vue-class-component';
     import {HttpService} from './services/HttpService';
     import HelloWorld from './components/HelloWorld.vue';
     
@@ -101,8 +97,9 @@ Inject `HttpService` to `<HelloWorld>` component:
 ```vue
 // ./components/HelloWorld.vue
 <script lang="ts">
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
     import {Inject} from '@vue-ioc/core';
-    import {Component, Vue} from 'vue-class-component';
     import {HttpService} from '../services/HttpService';
 
     @Component()
