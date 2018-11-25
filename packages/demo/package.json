@@ -1,0 +1,45 @@
+{
+  "name": "@vue-ioc/demo",
+  "version": "0.0.1",
+  "private": true,
+  "description": "vue-ioc demo",
+  "author": "Piotr Gejgalis",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vue-ioc/vue-ioc.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:e2e": "vue-cli-service test:e2e",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "@vue-ioc/core": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.0",
+    "@types/mocha": "^5.2.4",
+    "@types/sinon": "^2.3.7",
+    "@types/sinon-chai": "^2.7.29",
+    "@vue/cli-plugin-e2e-nightwatch": "^3.1.1",
+    "@vue/cli-plugin-typescript": "^3.1.1",
+    "@vue/cli-plugin-unit-mocha": "^3.1.1",
+    "@vue/cli-service": "^3.1.1",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "chai": "^4.1.2",
+    "typescript": "^3.0.0",
+    "vue-template-compiler": "^2.5.17",
+    "jsdom": "^11.3.0",
+    "mocha": "^3.2.0",
+    "ts-node": "^3.3.0",
+    "reflect-metadata": "0.1.10",
+    "sinon": "^4.1.1",
+    "sinon-chai": "^2.14.0",
+    "vue": "^2.5.17",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^7.0.0"
+  }
+}

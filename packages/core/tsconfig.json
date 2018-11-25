@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "sourceMap": true,
+    "declaration": true,
+    "pretty": true,
+    "strictNullChecks": true,
+    "lib": ["es6", "dom"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "node_modules/vue/types/**/*d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
