@@ -54,5 +54,8 @@
     "reflect-metadata": "^0.1.12",
     "vue": "^2.5.0",
     "vue-class-component": "^6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
