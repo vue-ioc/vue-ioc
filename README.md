@@ -11,15 +11,16 @@ and inspired by [Angular @Module](https://angular.io/guide/ngmodules) syntactic 
 ## Features
 
  1. **Hierarchical IoC Container** defined in `@Module` by `providers` (using [InversifyJS](http://inversify.io/) under the hood). The hierarchy is bound to Vue components tree.
- 2. **Autostart** - instantiating top level services when container has been started (for background tasks similar to `@Effects`  from `ngrx`). 
+ 2. **Autostart** - instantiating top level services when container has been started (for background tasks similar to `@Effects`  from `ngrx`).
+ 3. **@InjectReactive()** - makes injected dependency 'deep reactive' in Vue template.
  
 ## Planned features (not ready yet)
 
- 3. **Instance Handlers** - `@OnInit` and `@onDestroy` - decorators for methods called when instance is created or destroyed by container.
- 4. **State Injectors** for [Vuex](https://vuex.vuejs.org/) and [MobX](https://mobx.js.org/).
- 5. **Custom Injectors** ie. `@InjectAcl('CAN_REMOVE')`
- 6. **Custom Instance Handlers** ie. `@OnEvent('submitForm')`
- 7. **vue-cli** integration
+ 4. **Instance Handlers** - `@OnInit` and `@onDestroy` - decorators for methods called when instance is created or destroyed by container.
+ 5. **State Injectors** for [Vuex](https://vuex.vuejs.org/) and [MobX](https://mobx.js.org/).
+ 6. **Custom Injectors** ie. `@InjectAcl('CAN_REMOVE')`
+ 7. **Custom Instance Handlers** ie. `@OnEvent('submitForm')`
+ 8. **vue-cli** integration
 
 ## Caveats / Limitations
 

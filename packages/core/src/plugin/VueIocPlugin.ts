@@ -3,6 +3,8 @@ import {Container} from 'inversify';
 
 export const VueIocPlugin = {
     install: (Vue) => {
+        const reactivityMaker = new Vue({data: {targetObject: {}}});
+
         Vue.mixin({
             beforeCreate() {
                 const parent = findParentContainer(this);
@@ -23,15 +25,16 @@ export const VueIocPlugin = {
                     this.$vueIocContainer = parent as Container;
                 }
 
-                if (this.$vueIocContainer && this.$options.$vueIocInjections) {
+                const container = this.$vueIocContainer;
+                if (container && this.$options.$vueIocInjections) {
                     for (const propertyKey in this.$options.$vueIocInjections) {
                         if (this.$options.$vueIocInjections.hasOwnProperty(propertyKey)) {
-                            const {isArrayType, identifier} = this.$options.$vueIocInjections[propertyKey];
-                            if (isArrayType) {
-                                (this as any)[propertyKey] = this.$vueIocContainer.getAll(identifier);
-                            } else {
-                                (this as any)[propertyKey] = this.$vueIocContainer.get(identifier);
+                            const {isArrayType, identifier, reactive} = this.$options.$vueIocInjections[propertyKey];
+                            const value = isArrayType ? container.getAll(identifier) : container.get(identifier);
+                            if (reactive) {
+                                reactivityMaker.targetObject = value;
                             }
+                            this[propertyKey] = value;
                         }
                     }
                 }

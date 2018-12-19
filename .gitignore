@@ -3,6 +3,7 @@ dist
 npm-debug.log
 debug.log
 selenium-debug.log
+lerna-debug.log
 
 # local env files
 .env.local

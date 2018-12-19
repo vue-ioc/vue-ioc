@@ -2,6 +2,7 @@
     <div id="app">
         <img alt="Vue logo" src="./assets/logo.png">
         <HelloWorld/>
+        <ReactiveInjection/>
     </div>
 </template>
 <script lang="ts">
@@ -10,6 +11,7 @@
     import {Module} from '@vue-ioc/core';
     import HelloWorld from './components/HelloWorld.vue';
     import {HttpService} from './services/HttpService';
+    import ReactiveInjection from "../tests/unit/inject-reactive/fixture/ReactiveInjection.vue";
 
     @Module({
         providers: [
@@ -19,6 +21,7 @@
     @Component({
         components: {
             HelloWorld,
+            ReactiveInjection
         },
     })
     export default class App extends Vue {
