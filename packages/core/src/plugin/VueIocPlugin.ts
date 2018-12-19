@@ -6,11 +6,18 @@ export const VueIocPlugin = {
         Vue.mixin({
             beforeCreate() {
                 const parent = findParentContainer(this);
-                if (this.$vueIocModuleOptions) {
+                let $vueIocModuleOptions;
+                if (this.$options.$_vueTestUtils_original) {
+                    $vueIocModuleOptions = this.$options.$_vueTestUtils_original.prototype.$vueIocModuleOptions;
+                } else {
+                    $vueIocModuleOptions = this.$vueIocModuleOptions;
+                }
+
+                if ($vueIocModuleOptions) {
                     this.$vueIocContainer = createContainerWithBindings({
-                        initOnStart: this.$vueIocModuleOptions.start,
-                        parent: this.$vueIocModuleOptions.parentContainer || parent,
-                        providers: this.$vueIocModuleOptions.providers,
+                        initOnStart: $vueIocModuleOptions.start,
+                        parent: $vueIocModuleOptions.parentContainer || parent,
+                        providers: $vueIocModuleOptions.providers,
                     });
                 } else {
                     this.$vueIocContainer = parent as Container;

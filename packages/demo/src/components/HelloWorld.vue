@@ -18,7 +18,7 @@
     export default class HelloWorld extends Vue {
 
         @Inject()
-        public userService: UserService;
+        public userService!: UserService;
 
         user = null;
 
