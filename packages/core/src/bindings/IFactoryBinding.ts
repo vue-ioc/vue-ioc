@@ -1,5 +1,6 @@
 import {Container, interfaces} from 'inversify';
 import {IBaseBinding} from './Binding';
+import {onActivation} from './onActivation';
 import Context = interfaces.Context;
 
 export interface IFactoryBinding extends IBaseBinding {
@@ -7,5 +8,5 @@ export interface IFactoryBinding extends IBaseBinding {
 }
 
 export const bindFactory = (container: Container, {provide, useFactory}: IFactoryBinding) => {
-    container.bind(provide).toDynamicValue(useFactory);
+    container.bind(provide).toDynamicValue(useFactory).onActivation(onActivation);
 };

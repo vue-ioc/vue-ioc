@@ -3,7 +3,5 @@ import {VueIocPlugin} from '@vue-ioc/core';
 
 config.logModifiedComponents = false;
 
-const _localVue = createLocalVue();
-_localVue.use(VueIocPlugin);
-
-export const localVue = _localVue
+export const localVue = createLocalVue();
+localVue.use(VueIocPlugin);

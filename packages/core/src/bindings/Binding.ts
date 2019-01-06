@@ -1,8 +1,9 @@
 import {Container, interfaces} from 'inversify';
 import {bindFactory, IFactoryBinding} from './IFactoryBinding';
-import ServiceIdentifier = interfaces.ServiceIdentifier;
 import {bindClass, IClassBinding} from './IClassBinding';
 import {bindValue, IValueBinding} from './IValueBinding';
+import {LifecycleHandler} from '../lifecycle/LifecycleHandler';
+import ServiceIdentifier = interfaces.ServiceIdentifier;
 import Newable = interfaces.Newable;
 
 export type Binding = IClassBinding | IValueBinding | IFactoryBinding | Newable<any>;
@@ -18,6 +19,7 @@ const bindings = {
 };
 
 export const executeBindings = (container: Container, providers: Binding[] = []) => {
+    bindClass(container, {useClass: LifecycleHandler, provide: LifecycleHandler});
     providers.forEach((provider: any) => {
         if (typeof provider === 'function') {
             bindings.useClass(container, {useClass: provider, provide: provider});

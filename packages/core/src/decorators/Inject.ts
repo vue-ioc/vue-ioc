@@ -1,6 +1,7 @@
 import {inject, interfaces, multiInject} from 'inversify';
 import 'reflect-metadata';
 import {createDecorator, VueDecorator} from 'vue-class-component';
+import {isVuePrototype} from '../utils/isVuePrototype';
 import ServiceIdentifier = interfaces.ServiceIdentifier;
 
 export function InjectReactive(identifier?: any): any {
@@ -72,10 +73,6 @@ function injectPropertyToVueComponent(target: any,
             reactive: injectConfig.reactive,
         };
     });
-}
-
-function isVuePrototype(target: any) {
-    return target.$nextTick && target.$watch; // todo - better way to detect Vue prototype
 }
 
 interface InjectConfig {

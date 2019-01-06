@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {localVue} from "../init-test";
+import {localVue} from '../init-test';
 import {mount} from '@vue/test-utils';
 import App from '../../../src/App.vue';
 import * as fetchMock from 'fetch-mock';

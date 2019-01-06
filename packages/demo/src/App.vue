@@ -6,26 +6,26 @@
     </div>
 </template>
 <script lang="ts">
-    import Vue from 'vue'
-    import Component from 'vue-class-component'
-    import {Module} from '@vue-ioc/core';
-    import HelloWorld from './components/HelloWorld.vue';
-    import {HttpService} from './services/HttpService';
-    import ReactiveInjection from "../tests/unit/inject-reactive/fixture/ReactiveInjection.vue";
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import {Module} from '@vue-ioc/core';
+import HelloWorld from './components/HelloWorld.vue';
+import {HttpService} from './services/HttpService';
+import ReactiveInjection from '../tests/unit/reactive-injection/fixture/component/ReactiveInjection.vue';
 
-    @Module({
-        providers: [
-            HttpService,
-        ]
-    })
-    @Component({
-        components: {
-            HelloWorld,
-            ReactiveInjection
-        },
-    })
-    export default class App extends Vue {
-    }
+@Module({
+    providers: [
+        HttpService,
+    ],
+})
+@Component({
+    components: {
+        HelloWorld,
+        ReactiveInjection,
+    },
+})
+export default class App extends Vue {
+}
 </script>
 
 

@@ -1,5 +1,6 @@
 import {createContainerWithBindings} from '../ContainerService';
 import {Container} from 'inversify';
+import {LifecycleHandler} from '../lifecycle/LifecycleHandler';
 
 export const VueIocPlugin = {
     install: (Vue) => {
@@ -39,9 +40,21 @@ export const VueIocPlugin = {
                     }
                 }
             },
-            destroyed() {
+
+            created() {
+                if (this.$options.$vueIocOnInitMethod) {
+                    this[this.$options.$vueIocOnInitMethod]();
+                }
+            },
+
+            beforeDestroy() {
                 if (this.$vueIocContainer) {
+                    const lifecycleHandler = this.$vueIocContainer.get(LifecycleHandler) as LifecycleHandler;
+                    lifecycleHandler.destroy();
                     this.$vueIocContainer.unbindAll();
+                }
+                if (this.$options.$vueIocOnDestroyMethod) {
+                    this[this.$options.$vueIocOnDestroyMethod]();
                 }
             },
         });
