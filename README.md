@@ -130,7 +130,7 @@ Inject `HttpService` to `<HelloWorld>` component:
 
 ## Providers
 
-```
+```typescript
 @Module({
     providers: [
         // useClass
