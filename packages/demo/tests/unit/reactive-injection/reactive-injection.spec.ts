@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {localVue} from '../init-test';
 import {mount} from '@vue/test-utils';
-import ReactiveInjection from './fixture/ReactiveInjection.vue';
+import ReactiveInjection from './fixture/component/ReactiveInjection.vue';
 import {NotReactiveStorage} from './fixture/NonReactiveStorage';
 import {ReactiveStorage} from './fixture/ReactiveStorage';
 
