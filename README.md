@@ -13,7 +13,7 @@ and inspired by [Angular @Module](https://angular.io/guide/ngmodules) syntactic 
  1. **Hierarchical IoC Container** defined in `@Module` by `providers` (using [InversifyJS](http://inversify.io/) under the hood). The hierarchy is bound to Vue components tree.
  2. **Autostart** - instantiating top level services when container has been started (for background tasks similar to `@Effects`  from `ngrx`).
  3. **@InjectReactive()** - makes injected dependency 'deeply reactive' in Vue template.
- 4. **Instance Handlers** - `@OnInit` and `@onDestroy` - decorators for methods called when instance is created or destroyed by container.
+ 4. **Instance Handlers** - `@PostConstruct` and `@onDestroy` - decorators for methods called when instance is created or destroyed by container.
 
 ## Planned features (not ready yet)
 

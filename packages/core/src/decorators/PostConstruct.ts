@@ -1,7 +1,7 @@
 import {isVuePrototype} from '../utils/isVuePrototype';
 import {createDecorator} from 'vue-class-component';
 
-export function OnInit(): any {
+export function PostConstruct(): any {
     return (target, method) => {
         if (isVuePrototype(target)) {
             return createDecorator((options) => {

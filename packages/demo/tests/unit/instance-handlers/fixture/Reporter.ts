@@ -1,15 +1,15 @@
-import {Injectable, OnDestroy, OnInit} from '@vue-ioc/core';
+import {Injectable, BeforeDestroy, PostConstruct} from '@vue-ioc/core';
 
 @Injectable()
 export class Reporter {
     public lifecycleCalls: string[] = [];
 
-    @OnInit()
+    @PostConstruct()
     public onInit() {
         this.report('Reporter', 'onInit');
     }
 
-    @OnDestroy()
+    @BeforeDestroy()
     public onDestroy() {
         this.report('Reporter', 'onDestroy');
     }

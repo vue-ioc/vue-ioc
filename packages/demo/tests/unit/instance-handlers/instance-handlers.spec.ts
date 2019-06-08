@@ -6,7 +6,7 @@ import {Reporter} from './fixture/Reporter';
 
 describe('Instance handlers', () => {
 
-    it('should call @OnInit and @OnDestroy', () => {
+    it('should call @PostConstruct and @BeforeDestroy', () => {
         // given
         const wrapper = mount(InstanceHandlers, {
             localVue,

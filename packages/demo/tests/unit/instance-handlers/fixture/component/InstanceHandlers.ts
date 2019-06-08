@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Inject, Module, OnDestroy, OnInit} from '@vue-ioc/core';
+import {Inject, Module, BeforeDestroy, PostConstruct} from '@vue-ioc/core';
 import {Reporter} from '../Reporter';
 import {Service} from '../Service';
 
@@ -19,7 +19,7 @@ export default class InstanceHandlers extends Vue {
     @Inject()
     public reporter!: Reporter;
 
-    @OnInit()
+    @PostConstruct()
     public onInit() {
         this.reporter.report('InstanceHandlers', 'onInit');
     }
@@ -36,7 +36,7 @@ export default class InstanceHandlers extends Vue {
         this.reporter.report('InstanceHandlers', 'mounted');
     }
 
-    @OnDestroy()
+    @BeforeDestroy()
     public onDestroy() {
         this.reporter.report('InstanceHandlers', 'onDestroy');
     }
