@@ -2,6 +2,7 @@ import {inject, interfaces, multiInject} from 'inversify';
 import 'reflect-metadata';
 import {createDecorator, VueDecorator} from 'vue-class-component';
 import {isVuePrototype} from '../utils/isVuePrototype';
+import {$vueIocInjections} from '../common/magicFields';
 import ServiceIdentifier = interfaces.ServiceIdentifier;
 
 export function InjectReactive(identifier?: any): any {
@@ -64,10 +65,10 @@ function injectPropertyToVueComponent(target: any,
     const type = Reflect.getMetadata('design:type', target, propertyKey);
     const isArrayType = type === Array;
     return createDecorator((options: any) => {
-        if (!options.$vueIocInjections) {
-            options.$vueIocInjections = {};
+        if (!options[$vueIocInjections]) {
+            options[$vueIocInjections] = {};
         }
-        options.$vueIocInjections[propertyKey] = {
+        options[$vueIocInjections][propertyKey] = {
             isArrayType,
             identifier: identifier || type,
             reactive: injectConfig.reactive,

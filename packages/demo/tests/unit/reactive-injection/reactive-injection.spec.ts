@@ -4,13 +4,14 @@ import {mount} from '@vue/test-utils';
 import ReactiveInjection from './fixture/component/ReactiveInjection.vue';
 import {NotReactiveStorage} from './fixture/NonReactiveStorage';
 import {ReactiveStorage} from './fixture/ReactiveStorage';
+import {$vueIocContainer} from '@vue-ioc/core/src/common/magicFields';
 
 describe('ReactiveInjection', () => {
     it('should update view only in reactive storage', (done) => {
         // given
         const wrapper = mount(ReactiveInjection, {localVue});
-        const reactiveStorage: ReactiveStorage = (wrapper.vm as any).$vueIocContainer.get(ReactiveStorage);
-        const notReactiveStorage: NotReactiveStorage = (wrapper.vm as any).$vueIocContainer.get(NotReactiveStorage);
+        const reactiveStorage: ReactiveStorage = (wrapper.vm as any)[$vueIocContainer].get(ReactiveStorage);
+        const notReactiveStorage: NotReactiveStorage = (wrapper.vm as any)[$vueIocContainer].get(NotReactiveStorage);
 
         // when
         reactiveStorage.foo = 'changed foo';

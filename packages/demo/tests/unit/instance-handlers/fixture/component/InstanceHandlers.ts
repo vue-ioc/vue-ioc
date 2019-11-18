@@ -3,6 +3,7 @@ import Component from 'vue-class-component';
 import {Inject, Module, BeforeDestroy, PostConstruct} from '@vue-ioc/core';
 import {Reporter} from '../Reporter';
 import {Service} from '../Service';
+import {CustomInstanceHandler} from '../CustomInstanceHandler';
 
 @Module({
     providers: [
@@ -47,6 +48,11 @@ export default class InstanceHandlers extends Vue {
 
     public destroy() {
         this.reporter.report('InstanceHandlers', 'destroy');
+    }
+
+    @CustomInstanceHandler()
+    public customInstanceHandler() {
+        this.reporter.report('InstanceHandlers', 'customInstanceHandler');
     }
 
 }

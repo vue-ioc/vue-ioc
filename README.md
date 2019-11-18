@@ -14,12 +14,11 @@ and inspired by [Angular @Module](https://angular.io/guide/ngmodules) syntactic 
  2. **Autostart** - instantiating top level services when container has been started (for background tasks similar to `@Effects`  from `ngrx`).
  3. **@InjectReactive()** - makes injected dependency 'deeply reactive' in Vue template.
  4. **Instance Handlers** - `@PostConstruct` and `@BeforeDestroy` - decorators for methods called when instance is created or destroyed by container.
+ 5. **Custom Instance Handlers** ie. `@OnEvent('submitForm')`
 
 ## Planned features (not ready yet)
-
- 5. **State Injectors** for [Vuex](https://vuex.vuejs.org/) and [MobX](https://mobx.js.org/).
  6. **Custom Injectors** ie. `@InjectAcl('CAN_REMOVE')`
- 7. **Custom Instance Handlers** ie. `@OnEvent('submitForm')`
+ 7. **State Injectors** for [Vuex](https://vuex.vuejs.org/) and [MobX](https://mobx.js.org/).
  8. **vue-cli** integration
 
 ## Caveats / Limitations
@@ -149,3 +148,97 @@ Inject `HttpService` to `<HelloWorld>` component:
     ] 
 })
 ``` 
+
+## Custom Instance Handlers
+
+`@PostConstruct()` and `@BeforeDestroy()` are two built in instance listeners. You may create custom instance handlers
+like `@OnEvent('submitForm')` by creating a decorator using `createInstanceListenerDecorator`
+
+1. Prepare the most basic EventBus implementation:
+```typescript
+// bus/EventBus.ts
+import Vue from 'vue';
+import {Injectable} from '@vue-ioc/core';
+
+@Injectable()
+export class EventBus {
+
+    private bus: Vue = new Vue();
+
+    dispatch(name: string, data: any) {
+        this.bus.$emit(name, data);
+    }
+
+    addListener(name: string, listener: (data: any) => void) {
+        this.bus.$on(name, listener)
+    }
+
+    removeListener(name: string, listener: (data: any) => void) {
+        this.bus.$off(name, listener)
+    }
+}
+
+```
+
+2. Create `@OnEvent(name:string)` decorator
+
+```typescript
+// bus/OnEvent.ts
+import {createInstanceListenerDecorator} from '@vue-ioc/core';
+import {EventBus} from './EventBus';
+
+export function OnEvent(name: string) {
+    return createInstanceListenerDecorator(({container, instance, method}) => {
+        // attach handler - a place where listeners should be attached
+        const bus: EventBus = container.get(EventBus); // you have access to container where all services are stored
+        const boundMethod = instance[method].bind(instance); // bound method to `this` of instance
+        bus.addListener(name, boundMethod);
+        return () => { 
+            // detach handler - a place where all listeners should be detached
+            bus.removeListener(name, boundMethod);
+        };
+    });
+}
+```
+
+3. Dispatch event from view:
+
+```typescript
+// view/Form.vue
+<template>
+    <div>
+        <button @click="submitForm">Submit</button>
+    </div>
+</template>
+<script lang="ts">
+    import Vue from 'vue'
+    import Component from 'vue-class-component'
+    import {Inject} from '@vue-ioc/core';
+    import {EventBus} from '../bus/EventBus';
+
+    @Component()
+    export default class SomeForm extends Vue {
+
+        @Inject()
+        public bus!: EventBus;
+
+        public submitForm() {
+            this.bus.dispatch('submitForm', { firstName: 'John', lastName: 'Doe'})
+        }
+    }
+</script>
+```
+4. Handle event in external action:
+
+```typescript
+// actions/SubmitForm.ts
+import {OnEvent} from '../bus/OnEvent'
+
+export class SubmitForm {
+  
+  @OnEvent('submitForm')
+  perform (data) {
+     // do something with data
+  }
+}
+```

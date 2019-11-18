@@ -1,10 +1,11 @@
 import {Binding} from '../bindings/Binding';
 import {Container, interfaces} from 'inversify';
+import {$vueIocModuleOptions} from '../common/magicFields';
 import ServiceIdentifier = interfaces.ServiceIdentifier;
 
 export function Module(options: IModuleOptions) {
     return (targetConstructor: any) => {
-        targetConstructor.prototype.$vueIocModuleOptions = options;
+        targetConstructor.prototype[$vueIocModuleOptions] = options;
         return targetConstructor;
     };
 }

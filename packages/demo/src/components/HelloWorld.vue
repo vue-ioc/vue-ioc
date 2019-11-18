@@ -1,29 +1,48 @@
 <template>
     <div>
-        <h2 v-if="user">Hello {{user.firstName}} {{user.lastName}}!</h2>
+        <div v-if="userState.isLoading">Loading, please wait...</div>
+        <h2 v-else>Hello {{userState.firstName}} {{userState.lastName}}!</h2>
+        <p>
+            <button @click="changeLastName">Change last name to 'Walker'</button>
+        </p>
     </div>
 </template>
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import {Inject, Module} from '@vue-ioc/core';
-import {UserService} from '../services/UserService';
+    import Vue from 'vue';
+    import Component from 'vue-class-component';
+    import {Inject, InjectReactive, Module} from '@vue-ioc/core';
+    import {EventBus} from '@/bus/EventBus';
+    import {UserService} from '@/services/UserService';
+    import {UserState} from '@/state/UserState';
+    import {LoadUser} from '@/actions/LoadUser';
+    import {ChangeLastName} from '@/actions/ChangeLastName';
 
-@Module({
-    providers: [
-        UserService,
-    ],
-})
-@Component
-export default class HelloWorld extends Vue {
+    @Module({
+        providers: [
+            UserState,
+            UserService,
+            LoadUser,
+            ChangeLastName,
+        ],
+        start: [
+            LoadUser,
+            ChangeLastName
+        ]
+    })
+    @Component
+    export default class HelloWorld extends Vue {
 
-    @Inject()
-    public userService!: UserService;
+        @Inject()
+        public userService!: UserService;
 
-    public user = null;
+        @Inject()
+        public bus!: EventBus;
 
-    public async created() {
-        this.user = await this.userService.getUser();
+        @InjectReactive()
+        public userState!: UserState;
+
+        public changeLastName() {
+            this.bus.dispatch('changeLastName', 'Walker');
+        }
     }
-}
 </script>

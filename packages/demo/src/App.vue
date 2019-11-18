@@ -12,11 +12,13 @@ import {Module} from '@vue-ioc/core';
 import HelloWorld from './components/HelloWorld.vue';
 import {HttpService} from './services/HttpService';
 import ReactiveInjection from '../tests/unit/reactive-injection/fixture/component/ReactiveInjection.vue';
+import {EventBus} from '@/bus/EventBus';
 
 @Module({
     providers: [
+        EventBus,
         HttpService,
-    ],
+    ]
 })
 @Component({
     components: {

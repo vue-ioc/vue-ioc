@@ -1,5 +1,6 @@
-import {Inject, Injectable, BeforeDestroy, PostConstruct} from '@vue-ioc/core';
+import {BeforeDestroy, Inject, Injectable, PostConstruct} from '@vue-ioc/core';
 import {Reporter} from './Reporter';
+import {CustomInstanceHandler} from './CustomInstanceHandler';
 
 @Injectable()
 export class Service {
@@ -15,5 +16,10 @@ export class Service {
     @BeforeDestroy()
     public onDestroy() {
         this.reporter.report('Service', 'onDestroy');
+    }
+
+    @CustomInstanceHandler()
+    public customInstanceHandler() {
+        this.reporter.report('Service', 'customInstanceHandler');
     }
 }

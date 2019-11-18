@@ -1,6 +1,16 @@
 import {createContainerWithBindings} from '../ContainerService';
 import {Container} from 'inversify';
 import {LifecycleHandler} from '../lifecycle/LifecycleHandler';
+import {
+    $_vueTestUtils_original,
+    $vueIocContainer,
+    $vueIocCustomInstanceListeners,
+    $vueIocInjections,
+    $vueIocInstanceListenerMethods,
+    $vueIocModuleOptions,
+    $vueIocOnDestroyMethod,
+    $vueIocOnInitMethod
+} from '../common/magicFields';
 
 export const VueIocPlugin = {
     install: (Vue) => {
@@ -8,29 +18,30 @@ export const VueIocPlugin = {
 
         Vue.mixin({
             beforeCreate() {
+                const $options = this.$options;
                 const parent = findParentContainer(this);
-                let $vueIocModuleOptions;
-                if (this.$options.$_vueTestUtils_original) {
-                    $vueIocModuleOptions = this.$options.$_vueTestUtils_original.prototype.$vueIocModuleOptions;
+                let $moduleOptions;
+                if ($options[$_vueTestUtils_original]) {
+                    $moduleOptions = $options[$_vueTestUtils_original].prototype[$vueIocModuleOptions];
                 } else {
-                    $vueIocModuleOptions = this.$vueIocModuleOptions;
+                    $moduleOptions = this[$vueIocModuleOptions];
                 }
 
-                if ($vueIocModuleOptions) {
-                    this.$vueIocContainer = createContainerWithBindings({
-                        initOnStart: $vueIocModuleOptions.start,
-                        parent: $vueIocModuleOptions.parentContainer || parent,
-                        providers: $vueIocModuleOptions.providers,
+                if ($moduleOptions) {
+                    this[$vueIocContainer] = createContainerWithBindings({
+                        initOnStart: $moduleOptions.start,
+                        parent: $moduleOptions.parentContainer || parent,
+                        providers: $moduleOptions.providers,
                     });
                 } else {
-                    this.$vueIocContainer = parent as Container;
+                    this[$vueIocContainer] = parent as Container;
                 }
 
-                const container = this.$vueIocContainer;
-                if (container && this.$options.$vueIocInjections) {
-                    for (const propertyKey in this.$options.$vueIocInjections) {
-                        if (this.$options.$vueIocInjections.hasOwnProperty(propertyKey)) {
-                            const {isArrayType, identifier, reactive} = this.$options.$vueIocInjections[propertyKey];
+                const container = this[$vueIocContainer];
+                if (container && $options[$vueIocInjections]) {
+                    for (const propertyKey in $options[$vueIocInjections]) {
+                        if ($options[$vueIocInjections].hasOwnProperty(propertyKey)) {
+                            const {isArrayType, identifier, reactive} = $options[$vueIocInjections][propertyKey];
                             const value = isArrayType ? container.getAll(identifier) : container.get(identifier);
                             if (reactive) {
                                 reactivityMaker.targetObject = value;
@@ -42,19 +53,35 @@ export const VueIocPlugin = {
             },
 
             created() {
-                if (this.$options.$vueIocOnInitMethod) {
-                    this[this.$options.$vueIocOnInitMethod]();
+                const $options = this.$options;
+                if ($options[$vueIocInstanceListenerMethods]) {
+                    this[$vueIocCustomInstanceListeners] = $options[$vueIocInstanceListenerMethods].map(({method, handler}) => {
+                        return handler({instance: this, method, container: this[$vueIocContainer]});
+                    });
+                }
+                if ($options[$vueIocOnInitMethod]) {
+                    this[$options[$vueIocOnInitMethod]]();
                 }
             },
 
             beforeDestroy() {
-                if (this.$vueIocContainer) {
-                    const lifecycleHandler = this.$vueIocContainer.get(LifecycleHandler) as LifecycleHandler;
-                    lifecycleHandler.destroy();
-                    this.$vueIocContainer.unbindAll();
+                const customInstanceListeners = this[$vueIocCustomInstanceListeners];
+                if (customInstanceListeners) {
+                    customInstanceListeners.forEach((destroyHandler) => {
+                        destroyHandler && destroyHandler();
+                    });
                 }
-                if (this.$options.$vueIocOnDestroyMethod) {
-                    this[this.$options.$vueIocOnDestroyMethod]();
+
+                const container = this[$vueIocContainer];
+                if (container) {
+                    const lifecycleHandler = container.get(LifecycleHandler) as LifecycleHandler;
+                    lifecycleHandler.destroy();
+                    container.unbindAll();
+                }
+
+                const $options = this.$options;
+                if ($options[$vueIocOnDestroyMethod]) {
+                    this[$options[$vueIocOnDestroyMethod]]();
                 }
             },
         });
@@ -65,8 +92,8 @@ function findParentContainer(vm): Container | null {
     let $parent = vm;
     const found = false;
     while ($parent && !found) {
-        if ($parent.$vueIocContainer) {
-            return $parent.$vueIocContainer;
+        if ($parent[$vueIocContainer]) {
+            return $parent[$vueIocContainer];
         }
         $parent = $parent.$parent;
     }
