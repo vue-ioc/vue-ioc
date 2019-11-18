@@ -32,22 +32,22 @@
     "inversion of control"
   ],
   "devDependencies": {
-    "@types/chai": "^4.0.4",
-    "@types/mocha": "^5.2.5",
+    "@types/chai": "^4.2.5",
+    "@types/mocha": "^5.2.7",
     "awesome-typescript-loader": "^5.2.1",
     "inversify": "^4.5.0",
-    "jsdom": "^13.0.0",
+    "jsdom": "^13.2.0",
     "mocha": "^5.2.0",
-    "reflect-metadata": "^0.1.12",
+    "reflect-metadata": "^0.1.13",
     "source-map-loader": "^0.2.4",
     "ts-node": "^3.3.0",
-    "tslint": "^5.11.0",
+    "tslint": "^5.20.1",
     "tslint-loader": "^3.5.4",
-    "typescript": "^3.1.6",
-    "vue": "^2.5.0",
+    "typescript": "^3.7.2",
+    "vue": "^2.6.10",
     "vue-class-component": "^6.0.0",
-    "webpack": "^4.26.0",
-    "webpack-cli": "^3.1.2"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "peerDependencies": {
     "inversify": "^4.5.0",

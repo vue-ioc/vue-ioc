@@ -7,6 +7,6 @@
     "lerna:clean": "lerna clean"
   },
   "devDependencies": {
-    "lerna": "^3.4.3"
+    "lerna": "^3.18.4"
   }
 }

@@ -25,13 +25,13 @@
     "@types/mocha": "^5.2.4",
     "@types/sinon": "^2.3.7",
     "@types/sinon-chai": "^2.7.29",
-    "@vue/cli-plugin-e2e-nightwatch": "^3.1.1",
-    "@vue/cli-plugin-typescript": "^3.1.1",
+    "@vue/cli-plugin-e2e-nightwatch": "^3.12.1",
+    "@vue/cli-plugin-typescript": "^3.12.1",
     "@vue/cli-plugin-unit-mocha": "^3.1.1",
-    "@vue/cli-service": "^3.1.1",
-    "@vue/test-utils": "^1.0.0-beta.20",
+    "@vue/cli-service": "^3.12.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "chai": "^4.1.2",
-    "fetch-mock": "^7.2.7",
+    "fetch-mock": "^7.7.3",
     "inversify": "^4.5.0",
     "jsdom": "^11.3.0",
     "mocha": "^3.2.0",
@@ -40,10 +40,10 @@
     "sinon": "^4.1.1",
     "sinon-chai": "^2.14.0",
     "ts-node": "^3.3.0",
-    "typescript": "^3.0.0",
-    "vue": "^2.5.17",
+    "typescript": "^3.7.2",
+    "vue": "^2.6.10",
     "vue-class-component": "^6.0.0",
-    "vue-property-decorator": "^7.0.0",
-    "vue-template-compiler": "^2.5.17"
+    "vue-property-decorator": "^7.3.0",
+    "vue-template-compiler": "^2.6.10"
   }
 }
