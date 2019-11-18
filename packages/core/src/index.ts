@@ -4,4 +4,4 @@ export {Module} from './decorators/Module';
 export {PostConstruct} from './decorators/PostConstruct';
 export {BeforeDestroy} from './decorators/BeforeDestroy';
 export {VueIocPlugin} from './plugin/VueIocPlugin';
-export {createInstanceListenerDecorator} from './instance-listener/createInstanceListenerDecorator';
+export {createInstanceHandlerDecorator} from './instance-listener/createInstanceHandlerDecorator';

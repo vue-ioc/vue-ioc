@@ -152,7 +152,7 @@ Inject `HttpService` to `<HelloWorld>` component:
 ## Custom Instance Handlers
 
 `@PostConstruct()` and `@BeforeDestroy()` are two built in instance listeners. You may create custom instance handlers
-like `@OnEvent('submitForm')` by creating a decorator using `createInstanceListenerDecorator`
+like `@OnEvent('submitForm')` by creating a decorator using `createInstanceHandlerDecorator`
 
 1. Prepare the most basic EventBus implementation:
 ```typescript
@@ -184,11 +184,11 @@ export class EventBus {
 
 ```typescript
 // bus/OnEvent.ts
-import {createInstanceListenerDecorator} from '@vue-ioc/core';
+import {createInstanceHandlerDecorator} from '@vue-ioc/core';
 import {EventBus} from './EventBus';
 
 export function OnEvent(name: string) {
-    return createInstanceListenerDecorator(({container, instance, method}) => {
+    return createInstanceHandlerDecorator(({container, instance, method}) => {
         // attach handler - a place where listeners should be attached
         const bus: EventBus = container.get(EventBus); // you have access to container where all services are stored
         const boundMethod = instance[method].bind(instance); // bound method to `this` of instance
@@ -233,7 +233,9 @@ export function OnEvent(name: string) {
 ```typescript
 // actions/SubmitForm.ts
 import {OnEvent} from '../bus/OnEvent'
+import {Injectable} from '@vue-ioc/core';
 
+@Injectable()
 export class SubmitForm {
   
   @OnEvent('submitForm')

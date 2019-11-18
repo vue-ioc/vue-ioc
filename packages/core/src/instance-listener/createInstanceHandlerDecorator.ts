@@ -5,7 +5,7 @@ import {$vueIocInstanceListenerMethods} from '../common/magicFields';
 export type detachHandler = () => void;
 export type attachHandler = ({container: Container, instance: any, method: string}) => detachHandler
 
-export function createInstanceListenerDecorator(handler: attachHandler) {
+export function createInstanceHandlerDecorator(handler: attachHandler) {
     return (target: any, method: string) => {
         if (isVuePrototype(target)) {
             return createDecorator((options) => {
