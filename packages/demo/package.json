@@ -1,6 +1,6 @@
 {
   "name": "@vue-ioc/demo",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "private": true,
   "description": "vue-ioc demo",
   "author": "Piotr Gejgalis",
@@ -17,7 +17,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@vue-ioc/core": "^0.0.5"
+    "@vue-ioc/core": "^0.1.0"
   },
   "devDependencies": {
     "@types/chai": "^4.1.0",
