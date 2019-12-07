@@ -18,7 +18,7 @@ import {EventBus} from '@/bus/EventBus';
     providers: [
         EventBus,
         HttpService,
-    ]
+    ],
 })
 @Component({
     components: {

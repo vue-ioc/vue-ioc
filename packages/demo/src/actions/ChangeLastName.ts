@@ -6,10 +6,10 @@ import {UserState} from '@/state/UserState';
 export class ChangeLastName {
 
     @Inject()
-    userState!: UserState;
+    public userState!: UserState;
 
     @OnEvent('changeLastName')
-    perform(lastName: string) {
+    public perform(lastName: string) {
         this.userState.setData({lastName});
     }
 }

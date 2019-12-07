@@ -6,14 +6,14 @@ import {UserService} from '../services/UserService';
 export class LoadUser {
 
     @Inject()
-    userState!: UserState;
+    public userState!: UserState;
 
     @Inject()
-    userService!: UserService;
+    public userService!: UserService;
 
     @PostConstruct()
-    async init() {
+    public async init() {
         this.userState.setData(await this.userService.getUser());
-        this.userState.setIsLoading(false)
+        this.userState.setIsLoading(false);
     }
 }

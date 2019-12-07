@@ -3,17 +3,17 @@ import {Injectable} from '@vue-ioc/core';
 @Injectable()
 export class UserState {
 
-    firstName: string = '';
+    public firstName: string = '';
 
-    lastName: string = '';
+    public lastName: string = '';
 
-    isLoading: boolean = true;
+    public isLoading: boolean = true;
 
-    setData(data: any) {
+    public setData(data: any) {
         Object.assign(this, data);
     }
 
-    setIsLoading(isLoading: boolean) {
+    public setIsLoading(isLoading: boolean) {
         this.isLoading = isLoading;
     }
 }

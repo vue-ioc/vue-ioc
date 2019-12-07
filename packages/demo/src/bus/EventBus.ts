@@ -6,15 +6,15 @@ export class EventBus {
 
     private bus: Vue = new Vue();
 
-    dispatch(name: string, data: any) {
+    public dispatch(name: string, data: any) {
         this.bus.$emit(name, data);
     }
 
-    addListener(name: string, listener: (data: any) => void) {
-        this.bus.$on(name, listener)
+    public addListener(name: string, listener: (data: any) => void) {
+        this.bus.$on(name, listener);
     }
 
-    removeListener(name: string, listener: (data: any) => void) {
-        this.bus.$off(name, listener)
+    public removeListener(name: string, listener: (data: any) => void) {
+        this.bus.$off(name, listener);
     }
 }

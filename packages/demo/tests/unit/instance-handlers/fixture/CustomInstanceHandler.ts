@@ -6,7 +6,7 @@ export function CustomInstanceHandler() {
         const reporter: Reporter = container.get(Reporter);
         reporter.report('CustomInstanceHandler', 'onActivation:' + instance.constructor.name);
         return () => {
-            reporter.report('CustomInstanceHandler', 'beforeDestroy:' + instance.constructor.name)
-        }
+            reporter.report('CustomInstanceHandler', 'beforeDestroy:' + instance.constructor.name);
+        };
     });
 }

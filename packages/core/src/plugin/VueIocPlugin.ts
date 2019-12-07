@@ -9,7 +9,7 @@ import {
     $vueIocInstanceListenerMethods,
     $vueIocModuleOptions,
     $vueIocOnDestroyMethod,
-    $vueIocOnInitMethod
+    $vueIocOnInitMethod,
 } from '../common/magicFields';
 
 export const VueIocPlugin = {
