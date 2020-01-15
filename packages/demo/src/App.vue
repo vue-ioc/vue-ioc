@@ -3,6 +3,10 @@
         <img alt="Vue logo" src="./assets/logo.png">
         <HelloWorld/>
         <ReactiveInjection/>
+        <p>
+            <button @click="toggleDumbComponent">Toggle Dumb Component</button>
+        </p>
+        <dumb-component v-if="dumbComponentVisible"/>
     </div>
 </template>
 <script lang="ts">
@@ -13,6 +17,7 @@ import HelloWorld from './components/HelloWorld.vue';
 import {HttpService} from './services/HttpService';
 import ReactiveInjection from '../tests/unit/reactive-injection/fixture/component/ReactiveInjection.vue';
 import {EventBus} from '@/bus/EventBus';
+import DumbComponent from '@/components/DumbComponent.vue';
 
 @Module({
     providers: [
@@ -24,9 +29,16 @@ import {EventBus} from '@/bus/EventBus';
     components: {
         HelloWorld,
         ReactiveInjection,
+        DumbComponent,
     },
 })
 export default class App extends Vue {
+
+    private dumbComponentVisible: boolean = true;
+
+    public toggleDumbComponent() {
+        this.dumbComponentVisible = !this.dumbComponentVisible;
+    }
 }
 </script>
 

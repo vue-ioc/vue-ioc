@@ -72,8 +72,9 @@ export const VueIocPlugin = {
                     });
                 }
 
-                const container = this[$vueIocContainer];
-                if (container) {
+                const hasModuleDecorator = this[$vueIocModuleOptions];
+                if (hasModuleDecorator) {
+                    const container = this[$vueIocContainer];
                     const lifecycleHandler = container.get(LifecycleHandler) as LifecycleHandler;
                     lifecycleHandler.destroy();
                     container.unbindAll();
