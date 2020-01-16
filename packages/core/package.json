@@ -5,6 +5,7 @@
   "main": "dist/vue-ioc-core.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    "ci": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tslint:fix": "tslint --project ./tsconfig.json --fix",
     "build": "webpack --config webpack.config.js -p"

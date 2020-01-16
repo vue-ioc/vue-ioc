@@ -20,12 +20,7 @@ export const VueIocPlugin = {
             beforeCreate() {
                 const $options = this.$options;
                 const parent = findParentContainer(this);
-                let $moduleOptions;
-                if ($options[$_vueTestUtils_original]) {
-                    $moduleOptions = $options[$_vueTestUtils_original].prototype[$vueIocModuleOptions];
-                } else {
-                    $moduleOptions = this[$vueIocModuleOptions];
-                }
+                const $moduleOptions = getModuleOptions(this);
 
                 if ($moduleOptions) {
                     this[$vueIocContainer] = createContainerWithBindings({
@@ -72,8 +67,8 @@ export const VueIocPlugin = {
                     });
                 }
 
-                const hasModuleDecorator = this[$vueIocModuleOptions];
-                if (hasModuleDecorator) {
+                const hasModuleOptions = !!getModuleOptions(this);
+                if (hasModuleOptions) {
                     const container = this[$vueIocContainer];
                     const lifecycleHandler = container.get(LifecycleHandler) as LifecycleHandler;
                     lifecycleHandler.destroy();
@@ -99,4 +94,13 @@ function findParentContainer(vm): Container | null {
         $parent = $parent.$parent;
     }
     return null;
+}
+
+function getModuleOptions(vm) {
+    const $options = vm.$options;
+    if ($options[$_vueTestUtils_original]) {
+        return $options[$_vueTestUtils_original].prototype[$vueIocModuleOptions];
+    } else {
+        return vm[$vueIocModuleOptions];
+    }
 }

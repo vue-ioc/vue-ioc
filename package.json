@@ -4,7 +4,8 @@
   "scripts": {
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:publish": "lerna publish",
-    "lerna:clean": "lerna clean"
+    "lerna:clean": "lerna clean",
+    "lerna:ci": "lerna run ci"
   },
   "devDependencies": {
     "lerna": "^3.18.4"
