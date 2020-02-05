@@ -37,10 +37,11 @@ and inspired by [Angular @Module](https://angular.io/guide/ngmodules) syntactic 
  * `vue`
 
 ```bash
-# Yarn:
-npm install @vue-ioc/core inversify reflect-metadata vue-class-component vue --save
 
 # NPM
+npm install @vue-ioc/core inversify reflect-metadata vue-class-component vue --save
+
+# Yarn
 yarn add @vue-ioc/core inversify reflect-metadata vue-class-component vue
 ```
 
