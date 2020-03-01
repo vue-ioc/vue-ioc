@@ -1,8 +1,6 @@
 import {Injectable} from '../decorators/Injectable';
-import {interfaces} from 'inversify';
 import {$vueIocInstanceListenerMethods, $vueIocOnDestroyMethod, $vueIocOnInitMethod} from '../common/magicFields';
-
-type Container = interfaces.Container;
+import { Container } from '../types';
 
 @Injectable()
 export class LifecycleHandler {

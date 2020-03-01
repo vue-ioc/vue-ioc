@@ -1,15 +1,17 @@
-import {Container, interfaces} from 'inversify';
+import {Container} from 'inversify';
 import {bindFactory, IFactoryBinding} from './IFactoryBinding';
 import {bindClass, IClassBinding} from './IClassBinding';
 import {bindValue, IValueBinding} from './IValueBinding';
 import {LifecycleHandler} from '../lifecycle/LifecycleHandler';
-import ServiceIdentifier = interfaces.ServiceIdentifier;
-import Newable = interfaces.Newable;
+import {Newable, ProvidedIn, ServiceIdentifier, Vue} from '../types';
+import {Injector} from '../injector/Injector';
+import {$vueIocContainer, $vueIocProvidedIn} from '../common/magicFields';
 
 export type Binding = IClassBinding | IValueBinding | IFactoryBinding | Newable<any>;
 
 export interface IBaseBinding {
     provide: ServiceIdentifier<any>;
+    providedIn?: ProvidedIn;
 }
 
 const bindings = {
@@ -18,19 +20,63 @@ const bindings = {
     useValue: bindValue,
 };
 
-export const executeBindings = (container: Container, providers: Binding[] = []) => {
+export const executeBindings = (container: Container, providers: Binding[] = [], vm: Vue) => {
     bindClass(container, {useClass: LifecycleHandler, provide: LifecycleHandler});
+    container.bind(Injector).toConstantValue(new Injector(container));
     providers.forEach((provider: any) => {
+        const ctr = resolveContainer(provider, container, vm);
         if (typeof provider === 'function') {
-            bindings.useClass(container, {useClass: provider, provide: provider});
+            bindings.useClass(ctr, {useClass: provider, provide: provider});
         } else {
             Object.keys(bindings)
                 .forEach((key) => {
                     if (provider[key]) {
                         // @ts-ignore
-                        bindings[key](container, provider);
+                        bindings[key](ctr, provider);
                     }
                 });
         }
     });
 };
+
+function resolveContainer(provider: Binding, currentContainer: Container, vm: Vue): Container {
+    const providedIn = resolveProvidedIn(provider);
+    switch (providedIn) {
+        case 'root':
+            return findRootContainer(vm);
+        case 'self':
+            return currentContainer;
+    }
+    throw new Error('Invalid providedIn: ' + providedIn);
+}
+
+const PROVIDED_IN_PROPERTY = 'providedIn';
+const USE_CLASS_PROPERTY = 'useClass';
+
+function resolveProvidedIn(provider: Binding) {
+    if (provider[PROVIDED_IN_PROPERTY]) { // overrides all below
+        return provider[PROVIDED_IN_PROPERTY];
+    }
+
+    if (typeof provider === 'function' && provider[$vueIocProvidedIn]) {
+        return provider[$vueIocProvidedIn];
+    }
+
+    if (provider[USE_CLASS_PROPERTY] && provider[USE_CLASS_PROPERTY][PROVIDED_IN_PROPERTY]) {
+        return provider[USE_CLASS_PROPERTY][PROVIDED_IN_PROPERTY];
+    }
+}
+
+function findRootContainer(vm: Vue): Container {
+    let $parent = vm;
+    while ($parent) {
+        if ($parent[$vueIocContainer]) {
+            const container = $parent[$vueIocContainer];
+            if (!container.parent) {
+                return container;
+            }
+        }
+        $parent = $parent.$parent;
+    }
+    throw new Error('Couldn\'t find root container');
+}

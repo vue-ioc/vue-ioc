@@ -7,5 +7,8 @@ export interface IValueBinding extends IBaseBinding {
 }
 
 export const bindValue = (container: Container, {provide, useValue}: IValueBinding) => {
+    if (container.isBound(provide)) {
+        return;
+    }
     container.bind(provide).toConstantValue(useValue).onActivation(onActivation);
 };

@@ -27,6 +27,7 @@ export const VueIocPlugin = {
                         initOnStart: $moduleOptions.start,
                         parent: $moduleOptions.parentContainer || parent,
                         providers: $moduleOptions.providers,
+                        vm: this,
                     });
                 } else {
                     this[$vueIocContainer] = parent as Container;

@@ -15,9 +15,9 @@ and inspired by [Angular @Module](https://angular.io/guide/ngmodules) syntactic 
  3. **@InjectReactive()** - makes injected dependency 'deeply reactive' in Vue template.
  4. **Instance Handlers** - `@PostConstruct` and `@BeforeDestroy` - decorators for methods called when instance is created or destroyed by container.
  5. **Custom Instance Handlers** ie. `@OnEvent('submitForm')`
+ 6. **providedIn 'root' or 'self'** - select where will be bound @Injectable (friendly for tree shakeable singletons and lazy loaded @Modules) 
 
 ## Planned features (not ready yet)
- 6. **Custom Injectors** ie. `@InjectAcl('CAN_REMOVE')`
  7. **State Injectors** for [Vuex](https://vuex.vuejs.org/) and [MobX](https://mobx.js.org/).
  8. **vue-cli** integration
 
@@ -37,10 +37,11 @@ and inspired by [Angular @Module](https://angular.io/guide/ngmodules) syntactic 
  * `vue`
 
 ```bash
-# Yarn:
-npm install @vue-ioc/core inversify reflect-metadata vue-class-component vue --save
 
 # NPM
+npm install @vue-ioc/core inversify reflect-metadata vue-class-component vue --save
+
+# Yarn
 yarn add @vue-ioc/core inversify reflect-metadata vue-class-component vue
 ```
 
@@ -144,10 +145,27 @@ Inject `HttpService` to `<HelloWorld>` component:
         { provide: HttpService, useValue: httpService },
         
         // useFactory
-        { provide: HttpService, useFactory: (container) => ... }
+        { provide: HttpService, useFactory: (injector) => /* ...injector.get(FooService)... */ }
     ] 
 })
 ``` 
+
+## providedIn
+
+Default value: `'self'` Available values: `'root', 'self'`
+
+`@Injectable( { providedIn: 'root' } )` will bind service in root (App) container always as singleton.
+
+You may also override this setting at `@Module` providers level in both directions:
+
+```typescript
+@Module({
+    providers: [
+        { provide: HttpService, useClass: HttpService, providedIn: 'root' },   // overrides @Injectable()
+        { provide: OtherService, useClass: OtherService, providedIn: 'self' }, // overrides @Injectable( {providedIn: 'root'} )
+    ] 
+})
+```
 
 ## Custom Instance Handlers
 

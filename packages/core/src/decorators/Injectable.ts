@@ -1,9 +1,18 @@
 import {injectable} from 'inversify';
-import 'reflect-metadata';
+import {$vueIocProvidedIn} from '../common/magicFields';
+import {ProvidedIn} from '../types';
 
-export function Injectable() {
-    if (arguments.length !== 0) {
+export interface InjectableOptions {
+    providedIn?: ProvidedIn;
+}
+
+export function Injectable(options: InjectableOptions = {providedIn: 'self'}) {
+    if (arguments.length === 3) {
         throw new Error('Please use @Injectable() with parentheses');
     }
-    return injectable();
+    return (target, ...args) => {
+        // do vue-ioc stuff here
+        target[$vueIocProvidedIn] = options.providedIn;
+        return injectable()(target);
+    };
 }

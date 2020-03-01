@@ -1,7 +1,7 @@
 import {Binding} from '../bindings/Binding';
-import {Container, interfaces} from 'inversify';
+import {Container} from 'inversify';
 import {$vueIocModuleOptions} from '../common/magicFields';
-import ServiceIdentifier = interfaces.ServiceIdentifier;
+import { ServiceIdentifier } from '../types';
 
 export function Module(options: IModuleOptions) {
     return (targetConstructor: any) => {
@@ -15,7 +15,6 @@ export type Imports = any[];
 export interface IModuleOptions {
     imports?: Imports;
     providers?: Binding[];
-    autoBindInjectable?: boolean;
     parentContainer?: Container;
     start?: Array<ServiceIdentifier<any>>;
 }

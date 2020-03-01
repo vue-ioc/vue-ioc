@@ -1,12 +1,18 @@
-import {Container, interfaces} from 'inversify';
+import {Container} from 'inversify';
 import {IBaseBinding} from './Binding';
 import {onActivation} from './onActivation';
-import Context = interfaces.Context;
+import {Injector} from '../injector/Injector';
 
 export interface IFactoryBinding extends IBaseBinding {
-    useFactory: (context: Context) => any;
+    useFactory: (injector: Injector) => any;
 }
 
 export const bindFactory = (container: Container, {provide, useFactory}: IFactoryBinding) => {
-    container.bind(provide).toDynamicValue(useFactory).onActivation(onActivation);
+    if (container.isBound(provide)) {
+        return;
+    }
+    function useInjectorFactory(context) {
+        return useFactory(context.container.get(Injector));
+    }
+    container.bind(provide).toDynamicValue(useInjectorFactory).onActivation(onActivation);
 };

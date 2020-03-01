@@ -1,6 +1,5 @@
-import {interfaces} from 'inversify';
 import {LifecycleHandler} from '../lifecycle/LifecycleHandler';
-import Context = interfaces.Context;
+import { Context } from '../types';
 
 export const onActivation = (context: Context, instance) => {
     if (instance instanceof LifecycleHandler) {

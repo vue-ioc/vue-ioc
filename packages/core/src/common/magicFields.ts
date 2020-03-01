@@ -15,5 +15,6 @@ export const $vueIocOnDestroyMethod = '$vueIocOnDestroyMethod';
 export const $vueIocModuleOptions = '$vueIocModuleOptions';
 export const $vueIocContainer = '$vueIocContainer';
 export const $vueIocInjections = '$vueIocInjections';
+export const $vueIocProvidedIn = '$vueIocProvidedIn';
 
 export const $_vueTestUtils_original = '$_vueTestUtils_original';
