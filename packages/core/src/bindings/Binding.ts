@@ -21,8 +21,10 @@ const bindings = {
 };
 
 export const executeBindings = (container: Container, providers: Binding[] = [], vm: Vue) => {
-    bindClass(container, {useClass: LifecycleHandler, provide: LifecycleHandler});
-    container.bind(Injector).toConstantValue(new Injector(container));
+    const injector = new Injector(container);
+    container.bind(Injector).toConstantValue(injector);
+    container.bind(LifecycleHandler).toConstantValue(new LifecycleHandler(injector));
+
     providers.forEach((provider: any) => {
         const ctr = resolveContainer(provider, container, vm);
         if (typeof provider === 'function') {

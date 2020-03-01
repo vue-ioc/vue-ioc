@@ -206,9 +206,9 @@ import {createInstanceHandlerDecorator} from '@vue-ioc/core';
 import {EventBus} from './EventBus';
 
 export function OnEvent(name: string) {
-    return createInstanceHandlerDecorator(({container, instance, method}) => {
+    return createInstanceHandlerDecorator(({injector, instance, method}) => {
         // attach handler - a place where listeners should be attached
-        const bus: EventBus = container.get(EventBus); // you have access to container where all services are stored
+        const bus: EventBus = injector.get(EventBus); // you have access to injector where all services can be retrieved
         const boundMethod = instance[method].bind(instance); // bound method to `this` of instance
         bus.addListener(name, boundMethod);
         return () => { 

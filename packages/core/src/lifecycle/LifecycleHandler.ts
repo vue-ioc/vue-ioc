@@ -1,14 +1,15 @@
-import {Injectable} from '../decorators/Injectable';
 import {$vueIocInstanceListenerMethods, $vueIocOnDestroyMethod, $vueIocOnInitMethod} from '../common/magicFields';
-import { Container } from '../types';
+import {Injector} from '../injector/Injector';
 
-@Injectable()
 export class LifecycleHandler {
 
     private containerInstances: any[] = [];
     private beforeDestroyCustomInstanceListeners: any[] = [];
 
-    public registerInstance(instance: any, container: Container) {
+    constructor(private injector: Injector) {
+    }
+
+    public registerInstance(instance: any) {
         const ctor = instance.constructor;
         const item = {
             instance,
@@ -17,7 +18,7 @@ export class LifecycleHandler {
             customInstanceListeners: ctor[$vueIocInstanceListenerMethods],
         };
         this.containerInstances.push(item);
-        this.callCustomInstanceListeners(item, container);
+        this.callCustomInstanceListeners(item);
         callOnInitMethod(item);
     }
 
@@ -28,9 +29,10 @@ export class LifecycleHandler {
         this.beforeDestroyCustomInstanceListeners = [];
     }
 
-    private callCustomInstanceListeners({instance, customInstanceListeners}, container: Container) {
+    private callCustomInstanceListeners({instance, customInstanceListeners}) {
+        const injector = this.injector;
         this.beforeDestroyCustomInstanceListeners = (customInstanceListeners || []).map(({method, handler}) => {
-            return handler({method, instance, container});
+            return handler({method, instance, injector});
         });
     }
 }

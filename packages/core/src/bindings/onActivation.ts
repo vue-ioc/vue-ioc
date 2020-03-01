@@ -6,6 +6,6 @@ export const onActivation = (context: Context, instance) => {
         return instance;
     }
     const lifecycleHandler = context.container.get(LifecycleHandler);
-    lifecycleHandler.registerInstance(instance, context.container);
+    lifecycleHandler.registerInstance(instance);
     return instance;
 };

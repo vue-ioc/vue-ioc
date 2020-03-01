@@ -11,6 +11,7 @@ import {
     $vueIocOnDestroyMethod,
     $vueIocOnInitMethod,
 } from '../common/magicFields';
+import {Injector} from '..';
 
 export const VueIocPlugin = {
     install: (Vue) => {
@@ -52,7 +53,7 @@ export const VueIocPlugin = {
                 const $options = this.$options;
                 if ($options[$vueIocInstanceListenerMethods]) {
                     this[$vueIocCustomInstanceListeners] = $options[$vueIocInstanceListenerMethods].map(({method, handler}) => {
-                        return handler({instance: this, method, container: this[$vueIocContainer]});
+                        return handler({instance: this, method, injector: this[$vueIocContainer].get(Injector)});
                     });
                 }
                 if ($options[$vueIocOnInitMethod]) {

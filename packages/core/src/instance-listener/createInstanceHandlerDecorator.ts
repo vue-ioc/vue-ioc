@@ -3,7 +3,7 @@ import {createDecorator} from 'vue-class-component';
 import {$vueIocInstanceListenerMethods} from '../common/magicFields';
 
 export type detachHandler = () => void;
-export type attachHandler = ({container: Container, instance: any, method: string}) => detachHandler;
+export type attachHandler = ({injector: Injector, instance: any, method: string}) => detachHandler;
 
 export function createInstanceHandlerDecorator(handler: attachHandler) {
     return (target: any, method: string) => {
