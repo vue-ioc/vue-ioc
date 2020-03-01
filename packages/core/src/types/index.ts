@@ -1,10 +1,13 @@
 import {interfaces} from 'inversify';
+import {Vue as V} from 'vue/types/vue';
 
 export import Newable = interfaces.Newable;
 export import Context = interfaces.Context;
 export import Container = interfaces.Container;
 export import ServiceIdentifier = interfaces.ServiceIdentifier;
-export {Vue} from 'vue/types/vue';
+
+export interface Vue extends V {
+}
 
 export type ProvidedIn = 'root' | 'self';
 
