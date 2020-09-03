@@ -12,6 +12,7 @@ module.exports = {
     },
 
     output: {
+        globalObject: "this",
         filename: "[name].js",
         library: 'VueIoc',
         libraryTarget: 'umd',
