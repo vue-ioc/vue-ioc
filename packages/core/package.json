@@ -33,7 +33,7 @@
     "inversion of control"
   ],
   "devDependencies": {
-    "@types/chai": "^4.2.5",
+    "@types/chai": "^4.2.12",
     "@types/mocha": "^5.2.7",
     "awesome-typescript-loader": "^5.2.1",
     "inversify": "^4.5.0",
@@ -44,11 +44,11 @@
     "ts-node": "^3.3.0",
     "tslint": "^5.20.1",
     "tslint-loader": "^3.5.4",
-    "typescript": "^3.7.2",
-    "vue": "^2.6.10",
+    "typescript": "^3.9.7",
+    "vue": "^2.6.12",
     "vue-class-component": "^6.0.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "peerDependencies": {
     "inversify": "^4.5.0",
