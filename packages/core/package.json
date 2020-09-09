@@ -1,6 +1,6 @@
 {
   "name": "@vue-ioc/core",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "IoC and DI for Vue powered by InversifyJS and inspired by Angular @Module syntactic sugar.",
   "main": "dist/vue-ioc-core.js",
   "typings": "dist/index.d.ts",
