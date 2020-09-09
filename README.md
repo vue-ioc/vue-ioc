@@ -262,3 +262,24 @@ export class SubmitForm {
   }
 }
 ```
+
+## Inversify Container Options
+
+vue-ioc uses following default options for creating Inversify containers: 
+
+    {
+        autoBindInjectable: false,
+        defaultScope: 'Singleton',
+        skipBaseClassChecks: true,
+    }
+    
+To override or add other options, please use `containerOptions` of plugin options:
+
+```typescript
+Vue.use(VueIocPlugin, {
+  containerOptions: {
+    // options of Inversify container:
+    // https://github.com/inversify/InversifyJS/blob/master/wiki/container_api.md#container-options
+  }
+})
+```

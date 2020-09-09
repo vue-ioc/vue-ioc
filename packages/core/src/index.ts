@@ -3,7 +3,7 @@ export {Inject, InjectReactive} from './decorators/Inject';
 export {Module} from './decorators/Module';
 export {PostConstruct} from './decorators/PostConstruct';
 export {BeforeDestroy} from './decorators/BeforeDestroy';
-export {VueIocPlugin} from './plugin/VueIocPlugin';
+export {VueIocPlugin, VueIocPluginOptions} from './plugin/VueIocPlugin';
 export {createInstanceHandlerDecorator} from './instance-listener/createInstanceHandlerDecorator';
 export {Injector} from './injector/Injector';
 

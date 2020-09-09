@@ -1,5 +1,5 @@
 import {createContainerWithBindings} from '../ContainerService';
-import {Container} from 'inversify';
+import {Container, interfaces} from 'inversify';
 import {LifecycleHandler} from '../lifecycle/LifecycleHandler';
 import {
     $_vueTestUtils_original,
@@ -12,9 +12,12 @@ import {
     $vueIocOnInitMethod,
 } from '../common/magicFields';
 import {Injector} from '..';
+import ContainerOptions = interfaces.ContainerOptions;
+
+export type VueIocPluginOptions = { containerOptions?: ContainerOptions };
 
 export const VueIocPlugin = {
-    install: (Vue) => {
+    install: (Vue, {containerOptions}: VueIocPluginOptions = {}) => {
         const reactivityMaker = new Vue({data: {targetObject: {}}});
 
         Vue.mixin({
@@ -29,6 +32,7 @@ export const VueIocPlugin = {
                         parent: $moduleOptions.parentContainer || parent,
                         providers: $moduleOptions.providers,
                         vm: this,
+                        containerOptions,
                     });
                 } else {
                     this[$vueIocContainer] = parent as Container;

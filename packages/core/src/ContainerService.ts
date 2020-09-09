@@ -1,6 +1,7 @@
-import {Container} from 'inversify';
+import {Container, interfaces} from 'inversify';
 import {Binding, executeBindings} from './bindings/Binding';
 import {ServiceIdentifier, Vue} from './types';
+import ContainerOptions = interfaces.ContainerOptions;
 
 
 export interface IContainerOptions {
@@ -8,14 +9,21 @@ export interface IContainerOptions {
     providers?: Binding[];
     parent?: Container | null;
     initOnStart?: Array<ServiceIdentifier<any>>;
+    containerOptions?: ContainerOptions
 }
 
-export function createContainerWithBindings({providers, parent, vm, initOnStart}: IContainerOptions) {
-    const containerOptions = {
-        autoBindInjectable: false,
-        defaultScope: 'Singleton' as 'Singleton',
+const DEFAULT_CONTAINER_OPTIONS = {
+    autoBindInjectable: false,
+    defaultScope: 'Singleton' as 'Singleton',
+    skipBaseClassChecks: true
+};
+
+export function createContainerWithBindings({providers, parent, vm, initOnStart, containerOptions}: IContainerOptions) {
+    const options = {
+        ...DEFAULT_CONTAINER_OPTIONS,
+        ...containerOptions,
     };
-    const container = parent ? parent.createChild(containerOptions) : new Container(containerOptions);
+    const container = parent ? parent.createChild(options) : new Container(options);
     executeBindings(container, providers, vm);
     (initOnStart || []).forEach((identifier) => container.get(identifier));
     return container;
