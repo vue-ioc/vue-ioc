@@ -67,6 +67,8 @@ function resolveProvidedIn(provider: Binding) {
     if (provider[USE_CLASS_PROPERTY] && provider[USE_CLASS_PROPERTY][PROVIDED_IN_PROPERTY]) {
         return provider[USE_CLASS_PROPERTY][PROVIDED_IN_PROPERTY];
     }
+
+    return 'self';
 }
 
 function findRootContainer(vm: Vue): Container {
