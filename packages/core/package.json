@@ -36,7 +36,7 @@
     "@types/chai": "^4.2.12",
     "@types/mocha": "^5.2.7",
     "awesome-typescript-loader": "^5.2.1",
-    "inversify": "^4.5.0",
+    "inversify": "^5.0.1",
     "jsdom": "^13.2.0",
     "mocha": "^5.2.0",
     "reflect-metadata": "^0.1.13",
@@ -46,15 +46,15 @@
     "tslint-loader": "^3.5.4",
     "typescript": "^3.9.7",
     "vue": "^2.6.12",
-    "vue-class-component": "^6.0.0",
+    "vue-class-component": "^7.2.6",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
   "peerDependencies": {
-    "inversify": "^4.5.0",
-    "reflect-metadata": "^0.1.12",
+    "inversify": ">=4.5.0",
+    "reflect-metadata": ">=0.1.12",
     "vue": "^2.5.0",
-    "vue-class-component": "^6.0.0"
+    "vue-class-component": ">=6.0.0"
   },
   "publishConfig": {
     "access": "public"
