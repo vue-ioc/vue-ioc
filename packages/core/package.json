@@ -37,7 +37,7 @@
     "@types/mocha": "^5.2.7",
     "awesome-typescript-loader": "^5.2.1",
     "inversify": "^5.0.1",
-    "jsdom": "^13.2.0",
+    "jsdom": "^16.5.0",
     "mocha": "^5.2.0",
     "reflect-metadata": "^0.1.13",
     "source-map-loader": "^0.2.4",
