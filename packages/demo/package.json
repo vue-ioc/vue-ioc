@@ -27,7 +27,7 @@
     "@types/mocha": "^5.2.4",
     "@types/sinon": "^2.3.7",
     "@types/sinon-chai": "^2.7.29",
-    "@vue/cli-plugin-e2e-nightwatch": "^3.12.1",
+    "@vue/cli-plugin-e2e-nightwatch": "^5.0.8",
     "@vue/cli-plugin-typescript": "^3.12.1",
     "@vue/cli-plugin-unit-mocha": "^3.12.1",
     "@vue/cli-service": "^3.12.1",
